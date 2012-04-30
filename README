@@ -1,3 +1,14 @@
+This is bascially developer information and it's far from finish.
+
+To make everything work you need:
+apache php5 php5-xmlrpc screen rtorrent crontab and remember to put:
+
+LoadModule scgi_module /usr/lib/apache2/modules/mod_scgi.so
+SCGIMount /RPC2 127.0.0.1:5000
+
+.. in your apache CFG. The online software will tell you how to do it if it's missing in future commits.
+
+
 initiziation is loaded in this order: CONFIG.php -> configCheck.inc.php -> init.inc.php 
 
 CONFIG.php

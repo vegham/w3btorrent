@@ -26,8 +26,8 @@ $CONFIG['cfg'] 	= ".htconfig.xml"; //etc/w3btorrent/config.xml
 //
 //	MISC
 //
-$CONFIG['help']		= "http://code.google.com/p/w3btorrent/issues/list";
-$CONFIG['version']		= "0.9.0";
+$CONFIG['help']		= "not in use";
+$CONFIG['version']		= "0.9.0";	// not sure what to do about this now that git has version controll..
 
 
 //

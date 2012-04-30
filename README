@@ -1,0 +1,19 @@
+initiziation is loaded in this order: CONFIG.php -> configCheck.inc.php -> init.inc.php 
+
+CONFIG.php
+global config file for w3btorrent, this file will override online configuration!
+it consists of 
+
+
+inc/configCheck.inc.php
+Checks if the syntax in CONFIG.php is fulfilled. This means that the correct variables needs to be declared.
+This is the file which checks the permissions of the config.xml-file.
+
+
+inc/init.inc.php
+Run initial stuff.
+
+NEW STUFF
+- should be in their own including-files and header files.
+- should have security check at the start if required
+- should have proper file description in top

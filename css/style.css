@@ -1,0 +1,85 @@
+html
+{
+	height:100%;
+	overflow:-moz-scrollbars-vertical;
+}
+body
+{
+	height:100%;
+	font-size:12px;
+	font-family:verdana;
+	margin: 0;
+	padding: 0;
+	background-color: #fafafa;
+}
+#logo
+{
+	margin:0 auto;
+	width:276px;
+	height:110px;
+	background-image:url('../pix/w3btorrent.jpg');
+}
+#menu
+{
+	font-size:16px;
+	color: #000000; 
+	border-bottom: 1px solid black; 
+	margin: 8px 0px 0px 0px;
+	padding-left:10px;
+	z-index: 1;
+} 
+
+#menu li
+{ 
+	display: inline;
+	overflow: hidden;
+	list-style-type: none;
+} 
+
+#menu a, a.active
+{
+	background-image: url('../pix/tab/inactive.png');
+	background-repeat: repeat-x;
+	color: #000000;
+	border: 1px solid black; 
+	padding: 2px 5px 0px 5px; 
+	text-decoration: none;
+	border-bottom: 1px solid #e8e8e8;
+} 
+
+#menu a.active
+{
+	background-image: url('../pix/tab/active.png');
+	background-repeat: repeat-x;
+	border-bottom: 3px solid #e8e8e8;
+} 
+
+#menu a:hover
+{
+	background: #cacaca;
+} 
+
+#menu a.active:hover
+{ 
+	background: #ffffff;
+}
+#login
+{
+	background-color:#e8e8e8;
+	border:1px solid #000000;
+	margin:0 auto;
+}
+#content
+{
+	background-color: #e8e8e8; 
+	padding: 20px;
+	border: 1px solid black; 
+	border-top: none;
+	z-index: 2;
+}
+#footer
+{
+	font-size:10px;
+	font-family:verdana;
+	text-align:center;
+}

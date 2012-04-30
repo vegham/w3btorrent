@@ -1,0 +1,27 @@
+table
+{
+	width:100%;
+	border-collapse:collapse;
+}
+table thead
+{
+	font-weight:bold;
+    padding: 0; /* 'cellpadding' equivalent */
+}
+th
+{
+	background-color:#c4c4c4;
+}
+td
+{
+	padding:5px;
+	vertical-align:top;
+}
+tr.dark
+{
+	background-color:#d9d9d9;
+}
+tr.selected
+{
+	background-color:#9cc1ff;
+}

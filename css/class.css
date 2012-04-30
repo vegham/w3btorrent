@@ -1,0 +1,126 @@
+/* look */
+div.topic
+{
+	font-weight:bold;
+}
+div.col1
+{
+	width:25%;
+	float:left;
+}
+div.col2
+{
+	width:30%;
+	float:left;
+}
+img
+{
+	border:0;
+	position:relative;
+	top:2px;
+	right:2px;
+}
+a
+{
+	text-decoration:underline;
+}
+a:hover
+{
+        text-decoration:none;
+}
+a:link,a:active,a:visited
+{
+	color:#000000;
+}
+
+.noDecoration
+{
+	text-decoration:none;
+}
+.hidden
+{
+	display:none;
+}
+.center
+{
+	margin:0 auto;
+}
+.textCenter
+{
+	text-align:center;
+}
+.textLeft
+{
+	text-align:left;
+}
+.textRight
+{
+	text-align:right;
+}
+.error,.status
+{
+	color:#ff0000;
+}
+.aboveSpace
+{
+	margin-top:4px;
+}
+.belowSpace
+{
+	margin-bottom:4px;
+}
+.w30
+{
+	width:30px;
+}
+.w40
+{
+	width:40px;
+}
+.p40
+{
+	width:40%;
+}
+.p69
+{
+	width:69%;
+}
+.p74
+{
+	width:74%;
+}
+.p80
+{
+	width:80%;
+}
+.p100
+{
+	width:100%;
+}
+.floatLeft
+{
+	float:left;
+}
+.node
+{
+	margin-top:-3px;
+}
+.fontNormal
+{
+	font-size:12px;
+}
+.strong
+{
+	font-weight:bold;
+}
+.hand
+{
+	cursor:pointer;
+	cursor:hand;
+}
+
+img.disabled
+{
+    opacity: 0.3;
+}
+

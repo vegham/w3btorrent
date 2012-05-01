@@ -1,10 +1,15 @@
 <?php
+
+/*	this file is part of w3btorrent
+	all requests are through this page, ajax or not	*/
+	
+
 error_reporting(E_ALL);
 
 // need PHP 5 or greater to work
 if (phpversion() < 5)
 {
-	echo "w3btorrent now need's PHP 5 to work properly, please upgrade. This error can be removed from line 6-7 in '".$_SERVER["PHP_SELF"]."'.";
+	echo "w3btorrent now need's PHP 5 to work properly, please upgrade. This error can be removed from line 12-13 in '".$_SERVER["PHP_SELF"]."'.";
 	exit();
 }
 

@@ -1,7 +1,10 @@
 <?php
 
-/* global config file for w3btorrent, this file will override online configuration!
-	set values to "" if you want to use the online configuration */
+/*	this file is part of w3btorrent which is used to setup paths etc.
+
+	global config file for w3btorrent, this file will override online configuration!
+	set values to "" if you want to use the online configuration
+*/
 
 // if the mysql-variables below is set, the XML config is skipped 
 $CONFIG['mysql']['enabled']	= false;	// set this to true and mysql settings online are completly ignored
@@ -26,8 +29,8 @@ $CONFIG['cfg'] 	= ".htconfig.xml"; //etc/w3btorrent/config.xml
 //
 //	MISC
 //
-$CONFIG['help']		= "not in use";
-$CONFIG['version']		= "0.9.0";	// not sure what to do about this now that git has version controll..
+$CONFIG['helpUrl']		= "http://code.google.com/p/w3btorrent/";
+$CONFIG['version']		= "0.9.1";	// not sure what to do about this now that git has version controll..
 
 
 //

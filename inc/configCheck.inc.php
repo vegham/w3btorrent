@@ -1,5 +1,7 @@
 <?php
 
+/* this file is part of w3btorrent, it does whatever it can to use a get a writable xml file to store data in */ 
+
 require_once("CONFIG.php");
 
 if ($CONFIG['mysql']['enabled'])
@@ -37,7 +39,12 @@ elseif (!is_writeable($CONFIG['cfg']))
 	echo 'Error: Given configfile is not writeable, please do one of following: <ul><li>run `chmod 666 \''.realpath($CONFIG['cfg']).'\'` from a shell.</li><li>set \'+w\' on \''.realpath($CONFIG['cfg']).'\' through your FTP client.</li><li>edit \''.getcwd().'/CONFIG.php\' and select different path.</li></ul>';
 	exit();
 }
-elseif (!$cfg = simplexml_load_file($CONFIG['cfg']))
+else if (filesize($CONFIG['cfg']) < 5) // file is empty, write default
+{
+	file_put_contents($CONFIG['cfg'],"<?xml version=\"1.0\"?>\n<w3btorrent>\n<mysql/>\n<path/>\n<rtorrent/>\n<users/>\n</w3btorrent>");
+}
+
+if (!$cfg = @simplexml_load_file($CONFIG['cfg']))
 {
 	echo 'Error: Unable to load configfile, invalid XML format? Please correct this by editing \''.realpath($CONFIG['cfg']).'\' or \''.getcwd().'/CONFIG.php\'';
 	exit();

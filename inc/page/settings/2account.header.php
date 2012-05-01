@@ -71,7 +71,7 @@ else if (isset($_POST['account'],$_POST['id'],$_POST['type'],$_POST['username'],
 				$status['account'] = 'Account added.';
 				if (count(account::admins()) == 1)
 				{
-					 $status['account'] .= 'Logout, login and enjoy w3btorrent.';
+					 $status['account'] .= ' Logout, login and enjoy w3btorrent.';
 				}
 			}
 			else

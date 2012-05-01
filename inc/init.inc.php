@@ -1,9 +1,15 @@
 <?php
 
+/*	this file is part of w3btorrent, it runs one time for each new session
+	it loads DB info to session, important directories and rtorrent RPC address
+	if this is the first time w3btorrent is being used, this file gives the user a free pass
+*/
+
 require_once("configCheck.inc.php");
 require_once("inc/class/w3btorrent.class.php");
 
-if ($CONFIG['mysql']['enabled'])
+$_SESSION[$_SERVER['REMOTE_ADDR']]['mysql']['enabled'] = false;
+if (isset($CONFIG['mysql']['enabled']) && $CONFIG['mysql']['enabled'])
 {
 	$_SESSION[$_SERVER['REMOTE_ADDR']]['mysql'] = $CONFIG['mysql'];
 }
@@ -42,7 +48,7 @@ if ($_SESSION[$_SERVER['REMOTE_ADDR']]['mysql']['enabled'])
 // if we don't have an admin, let this user do whatever he likes
 
 require_once("inc/class/account.class.php");
-if (count(account::admins()) == 0)
+if (count(account::admins()) == 0)	// free pass
 {
 	$_SESSION[$_SERVER['REMOTE_ADDR']]['setup'] 	= true;
 	$_SESSION[$_SERVER['REMOTE_ADDR']]['admin'] 	= true;

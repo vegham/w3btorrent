@@ -1,13 +1,10 @@
 <?php
 
 /*
-PHP class to easy handle database operations/qyerys.
+PHP class to easy handle database operations/queries
 Copyright (C) 2006, 2007  Vegard Hammerseth <vegard@hammerseth.com> (http://vegard.hammerseth.com)
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
+free for all use except in commercial applications
 
 v1.0.3
 - removed bad comments

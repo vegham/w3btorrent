@@ -1,10 +1,15 @@
 <?php
 
-/*
+/*	this file is part of w3btorrent, it has core functions
+	it:
+	- loads dDir, userDdir, RPC address, SCGI address
+	- finds binaries automatically
+	- tell if a file should be hidden from end-user
+	- installs crontab or verify installation  */
+	
+	
 
-*/
-
-
+require_once("inc/class/mysql.class.php");
 
 class w3btorrent
 {
@@ -33,13 +38,13 @@ class w3btorrent
 		// possible ddirs
 		$dirs = array();
 		
-		if ($_SESSION[$_SERVER['REMOTE_ADDR']]['mysql']['enabled'])// get saved ddir
+		if ($_SESSION[$_SERVER['REMOTE_ADDR']]['mysql']['enabled'])	// get saved ddir
 		{
-			$dirs[] = w3btorrent::getDdirFromDb();
+			$dirs[] = $db = w3btorrent::getDdirFromDb();
 		}
 		elseif (isset($_SESSION[$_SERVER['REMOTE_ADDR']]['cfg']['path']['dDir']))
 		{
-			$dirs[] = $_SESSION[$_SERVER['REMOTE_ADDR']]['cfg']['path']['dDir'];
+			$dirs[] = $db = $_SESSION[$_SERVER['REMOTE_ADDR']]['cfg']['path']['dDir'];
 		}
 		
 		if (isset($CONFIG['dDir']))
@@ -58,7 +63,12 @@ class w3btorrent
 			}
 			$dir = realpath($dir)."/";
 			if (w3btorrent::validDdir($dir))
-			{
+			{	
+				if (empty($db))	// the dir is not saved anywhere, shall we?
+				{
+					require_once("inc/class/settings.class.php");
+					settings::setDdir($dir);
+				}
 				return $dir;
 			}
 		}
@@ -94,11 +104,11 @@ class w3btorrent
 		// get saved ddir
 		if ($_SESSION[$_SERVER['REMOTE_ADDR']]['mysql']['enabled'])
 		{
-			$dirs[] = w3btorrent::getUserDdirFromDb();
+			$dirs[] = $db = w3btorrent::getUserDdirFromDb();
 		}
 		elseif (isset($_SESSION[$_SERVER['REMOTE_ADDR']]['cfg']['path']['userDdir']))
 		{
-			$dirs[] = $_SESSION[$_SERVER['REMOTE_ADDR']]['cfg']['path']['userDdir'];
+			$dirs[] = $db = $_SESSION[$_SERVER['REMOTE_ADDR']]['cfg']['path']['userDdir'];
 		}
 	
 		if (isset($CONFIG['userDdir']))
@@ -119,6 +129,11 @@ class w3btorrent
 			$dir = realpath($dir)."/";	
 			if (w3btorrent::validDdir($dir))
 			{
+				if (empty($db))	// this dir is not saved anywhere, shall we?
+				{
+					require_once("inc/class/settings.class.php");
+					settings::setUserDdir($dir);
+				}
 				return $dir;
 			}
 		}
@@ -281,6 +296,7 @@ class w3btorrent
 		return true;
 	}
 	
+	// tell if a file should be hidden from end-user
 	public function internalFile($argFile)
 	{
 		if (basename($argFile) == "index.php")

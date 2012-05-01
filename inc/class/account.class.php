@@ -1,15 +1,6 @@
 <?php
 
-/*
-class for handle sessions for w3btorrent
-Copyright (C) 2005, 2008  Vegard Hammerseth <vegard@hammerseth.com> (http://vegard.hammerseth.com)
-
-This file is part of w3btorrent.
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
+/* this file is part of w3btorrent, it handles session for w3btorrent
 
 v1.0.1
 */

@@ -1,17 +1,12 @@
 <?php
 
 /*
-PHP class to handle torrent functions for w3btorrent
-Copyright (C) 2005, 2007  Vegard Hammerseth <vegard@hammerseth.com> (http://vegard.hammerseth.com)
+PHP class to handle rtorrent functions
+Copyright (C) 2011, 2012  Vegard Hammerseth <vegard@hammerseth.com> (http://vegard.hammerseth.com)
 
-This file is part of w3btorrent.
+free for all use except in commercial applications
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-v1.0.0
+v1.0.1
 */
 
 class rtorrent
@@ -297,14 +292,14 @@ class rtorrent
 				{
 					$return[$i]['status'] = "Seeding";
 				}
-				if ($return[$i]['hashing']>0)
+				if ($return[$i]['hashing'] > 0)
 				{
 				   $return[$i]['status']	= "Hashing";
-				   $return[$i]['percent']	= @round(($return[$i]['chunks_hashed'])/($return[$i]['size_chunks'])*100);
+				   $return[$i]['percent']	= @round(($return[$i]['chunks_hashed']/$return[$i]['size_chunks'])*100);
 				}
 				else
 				{			
-					$return[$i]['percent'] 		= @floor(($return[$i]['completed_bytes'])/($return[$i]['size_bytes'])*100);
+					$return[$i]['percent'] 		= @floor(($return[$i]['completed_bytes']/$return[$i]['size_bytes'])*100);
 				}
 				$return[$i]['down_left'] 	= ($return[$i]['size_bytes']-$return[$i]['completed_bytes']);			
 				
@@ -333,6 +328,7 @@ class rtorrent
 		return $return;		
 	}
 
+	// unfinish
 	public function getSettings($address)
 	{
 		$request = xmlrpc_encode_request

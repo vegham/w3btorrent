@@ -1,6 +1,13 @@
 <?php
 
-//Sun Feb  5 00:04:16 CET 2012
+/*
+PHP class to do misc queries with IMDB
+Copyright (C) 2012  Vegard Hammerseth <vegard@hammerseth.com> (http://vegard.hammerseth.com)
+
+free for all use except in commercial applications
+
+v1.0.0
+*/
 
 class imdb
 {
@@ -29,6 +36,7 @@ class imdb
 		
 		return trim($search);
 	}
+	
 	public function pickSearchHit($data)
 	{
 		if (preg_match('#esult(s?)\)<table><tr> <td valign="top"><a href="(.[^"]*)" onClick="#',$data,$m))
@@ -37,6 +45,7 @@ echo "Picked search hit: ".$m[2]."\n";
 			return "http://www.imdb.com".$m[2];
 		}
 	}
+	
 	public function search($search,$type="tt")
 	{
 		$opts = array(
@@ -68,6 +77,7 @@ echo "Picked search hit: ".$m[2]."\n";
 
 		return imdb::parse($data,$type);
 	}
+	
 	public function parse($html,$type)
 	{
 		if ($type == "tt")
@@ -75,6 +85,7 @@ echo "Picked search hit: ".$m[2]."\n";
 			return imdb::parseVideo($html);
 		}
 	}
+	
 	public function parseVideo($html)
 	{
 		$result = array();

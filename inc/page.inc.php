@@ -1,5 +1,7 @@
 <?php
 
+/*	this file is part of w3btorrent, it handles page requests */
+
 $PAGES['admin'] = array
 (
 	"d"=>"downloads",

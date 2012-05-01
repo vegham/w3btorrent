@@ -1,7 +1,11 @@
 #!/bin/sh
 
-# this script is part of w3btorrent
-# the use of this script is free for all as the modified program clearly states that its been adopted from w3btorrent 
+# this script is part of w3btorrent, it creates a debian package .deb
+#
+#
+# the use of this script is free for all as long as the modified program clearly states that its been adopted from w3btorrent
+#
+# USAGE: sudo sh build_deb.sh
 
 #
 ## REQUIREMENTS
@@ -43,7 +47,7 @@ mkdir w3btorrent-$version
 cd w3btorrent-$version
 
 
-
+# setup env
 dh_make -s -n -i -p w3btorrent
 cd debian
 rm *.ex *.EX
@@ -55,6 +59,8 @@ mkdir w3btorrent/var/www
 mkdir w3btorrent/var/www/w3btorrent
 mkdir w3btorrent/etc
 mkdir w3btorrent/etc/w3btorrent/
+
+# create default config
 echo '<?xml version="1.0"?>
 <w3btorrent version="$version" author="build_deb.sh">
 <mysql></mysql>
@@ -63,6 +69,13 @@ echo '<?xml version="1.0"?>
 <users></users>
 </w3btorrent>' > w3btorrent/etc/w3btorrent/config.xml
 
+# enable scgi module in apache2
+mkdir w3btorrent/etc/apache2
+mkdir w3btorrent/etc/apache2/sites-enabled
+echo 'LoadModule scgi_module /usr/lib/apache2/modules/mod_scgi.so
+SCGIMount /RPC2 127.0.0.1:5000' > w3btorrent/etc/apache2/sites-enabled/000-w3btorrent
+
+# copy program
 cp -a $path/inc w3btorrent/var/www/w3btorrent/
 cp -a $path/pix w3btorrent/var/www/w3btorrent/
 cp -a $path/script w3btorrent/var/www/w3btorrent/
@@ -78,6 +91,7 @@ php -r '$c = file("w3btorrent/var/www/w3btorrent/CONFIG.php");
 $c[count($c)-2] = "\$CONFIG[\"dDir\"] = \"/var/cache/w3btorrent\";//added by build_deb.sh\n\$CONFIG[\"cfg\"] = \"/etc/w3btorrent/config.xml\";//added by build_deb.sh\n";
 file_put_contents("w3btorrent/var/www/w3btorrent/CONFIG.php",join($c));'
 
+# make control file
 mkdir w3btorrent/DEBIAN
 echo "Package: w3btorrent
 Priority: optional
@@ -86,8 +100,8 @@ Maintainer: `uname -n`
 Homepage: http://w3btorrent.sourceforge.net/
 Architecture: all
 Version: $version
-Depends: rtorrent, php5, php5-xmlrpc
-Suggests: apache2, screen
+Depends: rtorrent, screen, php5, php5-xmlrpc, apache2, libapache2-mod-scgi
+Suggests: zip, unzip, tar, rar, unrar
 Description: lightweight web based torrent download manager" > control
 cp control w3btorrent/DEBIAN/
 

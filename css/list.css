@@ -6,7 +6,7 @@ table
 table thead
 {
 	font-weight:bold;
-    padding: 0; /* 'cellpadding' equivalent */
+	padding: 0; /* 'cellpadding' equivalent */
 }
 th
 {

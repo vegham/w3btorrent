@@ -1,20 +1,7 @@
 <?xml version="1.0"?>
-<w3btorrent version="0.9.0" author="vegham">
-	<mysql>
-		<hostname></hostname>
-		<port></port>
-		<username></username>
-		<db>w3</db>
-		<password></password>
-		<enabled>0</enabled>
-	</mysql>
-	<path>
-		<dDir></dDir>
-		<userDdir></userDdir>
-	</path>
-	<rtorrent>
-		<rpc></rpc>
-	</rtorrent>
-<users>
-</users>
+<w3btorrent>
+<mysql/>
+<path></path>
+<rtorrent/>
+<users></users>
 </w3btorrent>

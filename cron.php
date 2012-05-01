@@ -1,11 +1,12 @@
 <?php
 
-/*
-This file will verify w3btorrent each time it's being run.
-This means that it will:
-- check if index.php is in download folder or create it if not
-- make sure .rtorrent.rc is in download folder
-- make sure rtorrent is running
+/*	this file is part of w3btorrent
+
+	the file has several objectives, it:
+	- checks if index.php is in download folder or create it if not
+	- make sure .rtorrent.rc is in download folder
+	- make sure index.php is in download folder
+	- make sure rtorrent is running
 */
 
 // requirements
@@ -18,7 +19,7 @@ require_once("inc/class/w3btorrent.class.php");
 // load config to get dDir
 require_once("inc/init.inc.php");
 w3btorrent::init();
-
+ini_set("max_execution_time",180);
 session_write_close();
 $ps 			= (isset($_SESSION[$_SERVER['REMOTE_ADDR']]['path']['bin']['ps'])?$_SESSION[$_SERVER['REMOTE_ADDR']]['path']['bin']['ps']:"");
 $rtorrent 	= (isset($_SESSION[$_SERVER['REMOTE_ADDR']]['path']['bin']['rtorrent'])?$_SESSION[$_SERVER['REMOTE_ADDR']]['path']['bin']['rtorrent']:"");
@@ -39,6 +40,7 @@ if (!empty($_SESSION[$_SERVER['REMOTE_ADDR']]['path']['dDir']))	// a valid dDir 
 	// create initial file so we are able to connect to rtorrent
 	if (!is_file($_SESSION[$_SERVER['REMOTE_ADDR']]['path']['dDir'].".rtorrent.rc"))
 	{
+		// at this moment only two settings are being written, but the entire rtorrent config setup should be written to it's rc file.
 		/*print_r(rtorrent::getSettings($_SESSION[$_SERVER['REMOTE_ADDR']]['rtorrent']['rpc']));*/
 		$content  = "scgi_port = ".w3btorrent::getScgi()."\n";
 		$content .= "directory = ".$_SESSION[$_SERVER['REMOTE_ADDR']]['path']['dDir']."\n";
@@ -89,8 +91,5 @@ else
 
 
 echo "crontab";
-
-ini_set("max_execution_time",180);
-
 
 ?>

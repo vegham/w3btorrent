@@ -7,7 +7,7 @@
 </div>
 <script type="text/javascript">
 
-$('#content').append('<table><thead><tr><td>Name</td><td>Size</td><td>Done</td><td>Status</td><td>Downloaded</td><td>Uploaded</td><td>Down</td><td>Up</td><td>Seeds</td><td>Leech</td><td>Ratio</td><td>ETA</td></tr></thead><tbody id="downloadsTableBody"></tbody></table>');
+$('#content').append('<table><thead><tr><td>Name</td><td>Size</td><td>Done</td><td>Status</td><td>Downloaded</td><td>Uploaded</td><td>Down</td><td>Up</td><td>Seeds</td><td>Leech</td><td>Ratio</td><td>ETA</td></tr></thead><tbody id="downloadsTableBody"></tbody><tfoot><tr id="downloadsTableFooter"></tr></tfoot></table>');
 updateDownloadsContent('<?php echo json_encode($status); ?>');
 
 setTimeout("updateDownloads()",5000);

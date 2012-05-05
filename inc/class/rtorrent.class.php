@@ -257,6 +257,15 @@ class rtorrent
 		$response = rtorrent::xmlrpc($address,$request);
 		
 		$return = array();
+		$total = array
+		(
+			"size"=>0,
+			"down"=>array("loaded"=>0,"rate"=>0),
+			"up"=>array("loaded"=>0,"rate"=>0),
+			"seeds"=>0,
+			"leech"=>0,
+			"percent"=>0
+		);
 		if (is_array($response) && !isset($response['faultCode']))
 		{
 			$i = 0;
@@ -275,6 +284,16 @@ class rtorrent
 					$return[$i][$key] = $item[$j];
 					$j++;
 				}
+				$return[$i]['shortName'] 	= misc::subWord($return[$i]['name'],40);
+				
+				// totals
+				$total['size'] 			+= $return[$i]['size_bytes'];
+				$total['down']['loaded'] 	+= $return[$i]['down_total'];
+				$total['up']['loaded'] 		+= $return[$i]['up_total'];
+				$total['down']['rate'] 		+= $return[$i]['down_rate'];
+				$total['up']['rate'] 		+= $return[$i]['up_rate'];
+				$total['seeds'] 			+= $return[$i]['peers_complete'];
+				$total['leech'] 			+= $return[$i]['peers_connected'];
 				
 				if ($return[$i]['is_active'] == 0)
 				{
@@ -301,14 +320,26 @@ class rtorrent
 				{			
 					$return[$i]['percent'] 		= @floor(($return[$i]['completed_bytes']/$return[$i]['size_bytes'])*100);
 				}
+				$total['percent']			+= $return[$i]['percent'];
 				$return[$i]['down_left'] 	= ($return[$i]['size_bytes']-$return[$i]['completed_bytes']);			
 				
 				// ETA
 				$return[$i]['eta'] = "";
 				if ($return[$i]['percent'] < 100 && $return[$i]['is_active'] == 1)
 				{
-					$secLeft	= ($return[$i]['down_rate']<1?$return[$i]['down_left']:($return[$i]['down_left']/$return[$i]['down_rate']));
-					$return[$i]['eta'] = misc::humanTimeLeft($secLeft,2);
+					$secLeft	= ($return[$i]['down_rate']<0.1?0:($return[$i]['down_left']/$return[$i]['down_rate']));
+					if ($secLeft == 0)
+					{
+						$return[$i]['eta'] = "n/a";
+					}
+					else if ($secLeft > 60*60*24*3)	// three months
+					{
+						$return[$i]['eta'] = "+3 months";
+					}
+					else
+					{
+						$return[$i]['eta'] = misc::humanTimeLeft($secLeft,2);
+					}
 				}
 				
 				
@@ -324,8 +355,8 @@ class rtorrent
 				$i++;
 			}
 		}
-	
-		return $return;		
+		$total['percent'] = round($total['percent']/$i,0);
+		return array("torrents"=>$return,"total"=>$total);		
 	}
 
 	// unfinish
@@ -337,7 +368,8 @@ class rtorrent
 			array
 			(
 				"main",
-				"get_directory="
+				"get_directory=",
+				"get_download_rate="
 			)
 		);
 
@@ -354,9 +386,10 @@ class rtorrent
 		$index = 0;
 		foreach($response AS $key=>$item)
 		{
-			print_r($key);
-			print_r($item);
+			//print_r($key);
+			//print_r($item);
 		}
+		return $response;
 	}
 }
 

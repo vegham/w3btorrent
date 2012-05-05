@@ -96,12 +96,12 @@ mkdir w3btorrent/DEBIAN
 echo "Package: w3btorrent
 Priority: optional
 Section: universe/web
-Maintainer: `uname -n`
-Homepage: http://w3btorrent.sourceforge.net/
+Maintainer: Vegard Hammerseth <vegard@hammerseth.com> (http://vegard.hammerseth.com)
+Homepage: http://code.google.com/p/w3btorrent/
 Architecture: all
 Version: $version
 Depends: rtorrent, screen, php5, php5-xmlrpc, apache2, libapache2-mod-scgi
-Suggests: zip, unzip, tar, rar, unrar
+Suggests: mysql-server, zip, unzip, tar, rar, unrar
 Description: lightweight web based torrent download manager" > control
 cp control w3btorrent/DEBIAN/
 

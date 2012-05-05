@@ -13,9 +13,13 @@ $(document).ready(function() {
 });
 </script>
 <form id="download" method="post" action="?p=u">
-	<div class="topic">Download torrent - get torrents from another server<hr /></div>
+	<div class="topic"><img src="<?php echo $CONFIG['icon']['upload']['download']; ?>" alt="" /> Download torrent - get torrents from another server<hr /></div>
+	<div class="belowSpace">
+		<div class="col1">Start when added</div>
+		<div><input type="checkbox" name="start" /></div>
+	</div>
 	<div>
-		<div class="col2"><img src="<?php echo $CONFIG['icon']['upload']['download']; ?>" alt="" /> http, ftp or magnet link</div>
+		<div class="col1"> http, ftp or magnet link</div>
 		<div><input class="p69" type="text" id="downloadLink" name="downloadLink" onkeyup="setTimeout('downloadTorrent(\''+this.value+'\')',2500);" onchange="setTimeout('downloadTorrent(\''+this.value+'\')',2500);" /></div>
 	</div>
 	<span class="textLeft"><input id="submitDownload" type="submit" value="Download" onclick="return submitForm(['submitDownload'],'download','downloadStatus');" /></span>

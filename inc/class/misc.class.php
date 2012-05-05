@@ -28,15 +28,15 @@ class misc
 		for ($x = count($units)-1;$x >= 0;$x--)
 		{
 			$nr = pow(1024,$x);
-			if (abs($argByte) >= $nr || strtoupper($argType) == $units[$x])
+			if (abs($argByte) >= $nr && (empty($argType) || trim(strtoupper($argType)) == $units[$x]))
 			{
 				$x--;
 				break;
 			}
 		}
-		$x++;
+		$x++;	// to get right unit
 
-		$return = @number_format($argByte/$nr,$argDecimals);
+		$return = @number_format($argByte/$nr,$argDecimals,".","");
 		//$return = sprintf('%01.'.$argDecimals.'f',$return);
 		
 		// we already know unit so we don't need it
@@ -46,7 +46,7 @@ class misc
 		}
 		
 		return $return;
-	} // 1.0.5
+	} // 1.0.6
 
 	
 

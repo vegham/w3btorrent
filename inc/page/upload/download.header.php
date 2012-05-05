@@ -74,24 +74,25 @@ if (isset($_POST['downloadLink']))
 				mkdir($saveDir);
 			}
 			
+			// regular user gets the dir symlinked
 			if (!isset($_SESSION[$_SERVER['REMOTE_ADDR']]['admin']) && !is_link($_SESSION[$_SERVER['REMOTE_ADDR']]['path']['userDir'].$dirName))
 			{
 				//echo $saveDir."<br />".$_SESSION[$_SERVER['REMOTE_ADDR']]['path']['userDir'].$dirName;
 				symlink($saveDir,$_SESSION[$_SERVER['REMOTE_ADDR']]['path']['userDir'].$dirName);
-			}
-
-			rtorrent::setSaveDir($_SESSION[$_SERVER['REMOTE_ADDR']]['rtorrent']['rpc'],$saveDir,$hash);
+			}	
 			
 			// magnet link
 			if (isset($hash))
 			{
-				rtorrent::start($_SESSION[$_SERVER['REMOTE_ADDR']]['rtorrent']['rpc'],$hash);
+				rtorrent::setSaveDir($_SESSION[$_SERVER['REMOTE_ADDR']]['rtorrent']['rpc'],$saveDir,$hash);
+				rtorrent::loadStart($_SESSION[$_SERVER['REMOTE_ADDR']]['rtorrent']['rpc'],$file);
 				w3btorrent::write2log("upload","Downloaded magnet-link to '".$file."'.");
 				$status['download'] = "Magnet link is now downloading and the torrent can be started in a minute.<script type='text/javascript'>$('#downloadLink').val('');</script>";
 			}
 			else
 			{
 				$hash = rtorrent::getHashByFile($_SESSION[$_SERVER['REMOTE_ADDR']]['rtorrent']['rpc'],$file);
+				rtorrent::setSaveDir($_SESSION[$_SERVER['REMOTE_ADDR']]['rtorrent']['rpc'],$saveDir,$hash);
 				w3btorrent::write2log("upload","Downloaded '".$file."'.");
 				$status['download'] = "Torrent downloaded.<script type='text/javascript'>$('#downloadLink').val('');</script>";
 			}

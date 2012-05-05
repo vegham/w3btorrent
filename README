@@ -1,5 +1,8 @@
 This is bascially developer information and it's far from finish.
 
+Check home page first: http://code.google.com/p/w3btorrent/ 
+
+
 To make everything work you need:
 apache php5 php5-xmlrpc screen rtorrent crontab and remember to put:
 
@@ -13,7 +16,6 @@ initiziation is loaded in this order: CONFIG.php -> configCheck.inc.php -> init.
 
 CONFIG.php
 global config file for w3btorrent, this file will override online configuration!
-it consists of 
 
 
 inc/configCheck.inc.php
